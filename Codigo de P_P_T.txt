@@ -1,0 +1,48 @@
+using System;
+
+class Jogador
+{
+    public string escolha;
+
+    public void Vitoria() { Console.WriteLine("Venceu\n"); }
+    public void Derrota() { Console.WriteLine("Perdeu\n"); }
+}
+
+class Computador : Jogador
+{
+    string[] op = { "Pedra", "Papel", "Tesoura" };
+    Random r = new Random();
+
+    public void Sortear()
+    {
+        escolha = op[r.Next(3)];
+    }
+}
+
+class Jogo
+{
+    static void Main()
+    {
+        Jogador j = new Jogador();
+        Computador c = new Computador();
+
+        for (int i = 1; i <= 3; i++)
+        {
+            Console.Write("Pedra/Papel/Tesoura: ");
+            j.escolha = Console.ReadLine();
+
+            c.Sortear();
+            Console.WriteLine("PC: " + c.escolha);
+
+            if (j.escolha == c.escolha)
+                Console.WriteLine("Empate\n");
+            else if (
+                (j.escolha == "Pedra" && c.escolha == "Tesoura") ||
+                (j.escolha == "Papel" && c.escolha == "Pedra") ||
+                (j.escolha == "Tesoura" && c.escolha == "Papel"))
+                j.Vitoria();
+            else
+                j.Derrota();
+        }
+    }
+}
